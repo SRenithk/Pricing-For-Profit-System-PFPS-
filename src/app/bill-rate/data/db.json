@@ -1,5 +1,4 @@
-{
-  "Desired-billrate": [
+[
     {
       "emp_name": "Uthith Narayanan Thirumaran",
       "ctc": "650000",
@@ -8,4 +7,3 @@
       "id": 1
     }
   ]
-}
