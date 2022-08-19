@@ -1,6 +1,7 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap'); font-family: 'Nunito', sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=Signika:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');  */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap'); /*Numbers*/
+
 * 
 { 
   font-family: 'Signika', sans-serif; 
@@ -87,12 +88,10 @@
   font-size: 12px;
   color: red;
 }
-/* ::ng-deep.mat-form-field-underline:focus*/
 /* Angular Material ///// */
 .rightbox
 {
   height: 70vh;
-  /* background-color: rgb(255, 255, 255) !important; */
   background-color: rgb(7, 31, 53) !important;
   box-shadow: 0 0 15px 5px rgb(158, 158, 158) !important;
 }
@@ -114,7 +113,6 @@
   display: grid;
   grid-template-columns: 99% 1% ;
   padding-top:6%;
-  /* grid-template-columns: 67% 33% ; */
 }
 .h-split2
 {
@@ -148,13 +146,10 @@
   position: absolute;
   right: 10%;
   top: 1.5%;
-  /* bottom: 8px; */
   padding: 8px;
   background-color: #00badf;
   border-radius: 50px;
   text-shadow: 0 0 5px rgb(0, 0, 0);
-  /* box-shadow: 0 0 9px 1px rgb(1, 160, 112); */
-  /* box-shadow: 0 0 9px 1px rgb(0, 156, 91); */
 }
 .copy:hover , .export:hover
 {
@@ -167,25 +162,18 @@
 .export
 {
   float: right;
-  /* 15 7 */
   font-size: 17px;
   position: absolute;
   right: 4%;
   top: 1.5%;
-  /* bottom: 8px; */
   padding: 8px;
-  /* background-color: #00badf; */
   background-color: #00badf;
   border-radius: 50px;
   text-shadow: 0px 0 5px rgb(0, 0, 0);
-  /* box-shadow: 0 0 9px 1px rgb(0, 156, 91); */
-  /* box-shadow: 0 0 7px 2px rgb(0, 209, 174); */
 
 }
 .cyan-text
 {
-  /* border-bottom:2px solid #00badf; */
-  /* color:#00badf; */
   color:#ffffff;
 }
 .t1
@@ -320,20 +308,19 @@
 }
 .h1-txt
 {
-  /*font-size: 2.7vw;  font-size: 50px; */
-  font-size: 2.3vw; /* font-size: 50px; */
-  /* font-size: 3.3vw; font-size: 50px; */
-  font-family: 'Alata', sans-serif;
+  font-size: 2.4vw;
+  /* font-family: 'Alata', sans-serif; */
+  font-family: 'Lato', sans-serif;
 }
 .h1-head
 {
-  font-size: 1.55vw; /* font-size: 24px; */
-  /* color: rgb(7, 31, 53); */
+  font-size: 1.55vw; 
 }
 .h1-txt-CTC
 {
   font-size: 7vw;
-  font-family: 'Alata', sans-serif;
+  font-family: 'Lato', sans-serif;
+  /* font-family: 'Alata', sans-serif; */
 }
 .h1-head-CTC
 {
@@ -361,7 +348,5 @@ color: red;
 position: absolute;
 }
 #myHiddenPage {
-
   display: none;
-
 }

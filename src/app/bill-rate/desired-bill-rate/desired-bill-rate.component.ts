@@ -139,7 +139,11 @@ export class DesiredBillRateComponent implements OnInit {
     
     if(this.emp_name?.value!=null && this.emp_name?.value!="" && this.ctc?.value!=null && this.t_hours?.value!=null)
     {
-      this.http.delete('http://localhost:3000/Desired-billrate/1').subscribe(res=>console.log(res))
+      this.service.getAllData().subscribe(res=>
+        {
+          console.log(res.length == 0)
+        })
+      // this.http.delete('http://localhost:3000/Desired-billrate/1').subscribe(res=>console.log(res))
       this.http.post('http://localhost:3000/Desired-billrate',this.CalculateForm.getRawValue(),{withCredentials:true}).subscribe(
       res=>console.log(res)
       ); 
