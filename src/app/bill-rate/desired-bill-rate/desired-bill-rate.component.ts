@@ -141,12 +141,20 @@ export class DesiredBillRateComponent implements OnInit {
     {
       this.service.getAllData().subscribe(res=>
         {
-          console.log(res.length == 0)
+          if(res.length>0)
+          {
+            for(var i=0;i<res.length;i++)
+            {
+              console.log(res[i].id);
+              this.http.delete('http://localhost:3000/Desired-billrate/'+res[i].id).subscribe()
+            }
+          }
         })
-      // this.http.delete('http://localhost:3000/Desired-billrate/1').subscribe(res=>console.log(res))
-      this.http.post('http://localhost:3000/Desired-billrate',this.CalculateForm.getRawValue(),{withCredentials:true}).subscribe(
-      res=>console.log(res)
-      ); 
+        setTimeout(()=>{
+        this.http.post('http://localhost:3000/Desired-billrate',this.CalculateForm.getRawValue(),{withCredentials:true}).subscribe(
+        res=>console.log(res)
+        ); 
+        }, 800);
       this.Emp_name = this.emp_name.value;
       // .substring(0, this.emp_name.value.indexOf(' '));
       this.ctc_perAnnum_INR = Number(this.ctc?.value);
