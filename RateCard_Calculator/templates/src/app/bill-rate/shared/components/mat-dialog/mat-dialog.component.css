@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap'); /*Numbers*/
+*, *:before, *::after   { box-sizing: inherit       ; } /*inherit from parent*/
+html                    { box-sizing: border-box    ; }
+.content-box            { box-sizing: content-box   ; }
+*                       { font-family: 'Signika', sans-serif ; font-size: 3vmin}
+::ng-deep .mat-dialog-container
+{
+    padding: 1.5vmin;
+    position: relative;
+}
+.mat-dialog-head
+{
+    position: absolute;
+    top: 3vmin;
+}
+.mat-dialog-body
+{
+    position: absolute;
+    top: 8.5vmin;
+}
+.mat-dialog-btn
+{
+    position: absolute; 
+    bottom: 2vmin;
+}

@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap'); /*Numbers*/
+*, *:before, *::after   { box-sizing: inherit       ; } /*inherit from parent*/
+html                    { box-sizing: border-box    ; }
+.content-box            { box-sizing: content-box   ; }
+*                       { font-family: 'Signika', sans-serif ; }
+
+.backdrops
+{
+    display: grid;
+    place-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* semi-transparent black */
+    z-index: 100; /* place the backdrop behind the UI */
+}
+.router
+{
+    position: relative;
+    z-index:99;
+}
+.no-conn-container
+{
+  display: grid;
+  grid-template-rows: 45% 55%;
+  width: 100%;
+}
+.fix-text-container
+{
+  display: grid;
+  align-items: end;
+  justify-content: center;
+  margin-bottom: 10vmin;
+}
+.gear-wrench-container
+{
+  display: grid;
+  grid-template-columns: 65% 35%;
+  justify-content: center;
+  align-items: start;
+  width: 65vmin;
+}
+.gear-container
+{
+ 
+}
+.wrench-container
+{
+
+}
+.wrench
+{
+  animation: move-wrench 2s infinite  ease-in-out;
+  transform-origin: 73% 27%;
+  font-size: 12vmin;
+  position: relative;
+}
+@keyframes move-wrench {
+  0%    { transform: rotate(160deg); }
+  25%   { transform: rotate(280deg); }
+  40%   { transform: rotate(280deg); }
+  90%   { transform: rotate(160deg); }
+  100%  { transform: rotate(160deg); }
+}
+@keyframes small-nut {
+  0%    { transform: rotate(0deg); }
+  25%   { transform: rotate(0deg); }
+  40%   { transform: rotate(0deg); }
+  90%   { transform: rotate(120deg); }
+  100%  { transform: rotate(120deg); }
+}
+@keyframes move-nut {
+  0%    { transform: rotate(160deg); }
+  25%   { transform: rotate(280deg); }
+  100%  { transform: rotate(280deg); }
+}
+@keyframes move-nut-backward {
+  0%    { transform: rotate(-160deg); }
+  25%   { transform: rotate(-280deg); }
+  100%  { transform: rotate(-280deg); }
+}
+.nut-icon
+{
+  width: 2.7vmin;
+  position: absolute;
+  right:1.8vmin;
+  top:2vmin;
+  rotate: 18deg; 
+  animation: small-nut 2s infinite ease-in-out;
+}
+.gear-1
+{
+  animation: move-nut 2s infinite ease-in-out;
+  rotate: 60deg;
+  position: relative;
+  bottom: .6vmin;
+  font-size: 8vmin;
+}
+.gear-2
+{
+  animation: move-nut-backward 2s infinite ease-in-out;
+  position: relative;
+  bottom: 5vmin;
+  right: 3.7vmin;
+  font-size: 12vmin;
+}
+.gear-3
+{
+  animation: move-nut 2s infinite ease-in-out;
+  position: relative;
+  top: 5.5vmin;
+  right: 10.2vmin;
+  rotate: 15deg;
+  font-size: 15vmin;
+}

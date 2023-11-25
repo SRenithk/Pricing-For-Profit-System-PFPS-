@@ -1,0 +1,372 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import "~bootstrap/dist/css/bootstrap.css" */
+
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-dropdowns/styles/material.css';
+
+@import '~ngx-toastr/toastr';
+/* 51a351 */
+.toast-success  { background-color: #3db93d !important; } 
+.toast-info     { background-color: #1bbae6 !important; } 
+.toast-warning  { background-color: #f99406 !important; } 
+.toast-error    { background-color: #bc382e !important; } 
+
+html, body        { height: 100%; }
+body              { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Signika', sans-serif  !important; }
+.mt-2_5_percent   { margin-top: 2.5%;                               }
+.right-float      { float: right                        !important; }
+.pointer          { cursor: pointer;                                }
+.profile          { display: inline-block;                          }
+.capitalize       { text-transform: capitalize          !important; }
+.underline        { text-decoration: underline                    ; }
+.line-height-3    { line-height: 3vmin ;}
+.fullpage
+{
+    background: linear-gradient(rgb(236, 249, 255),rgb(255, 255, 255));
+    height: 100vh;
+}
+/* Margin and Padding \\\ */
+.p0-m0            { padding: 0 !important; margin: 0    !important; }
+.b-radius-0       { border-radius: 0                    !important; }
+.my-mt-8          { margin-top : 16vmin                 !important; }
+.my-mt-7          { margin-top : 10vmin                 !important; }
+.my-mt-6          { margin-top : 8vmin                  !important; }
+.my-mt-5          { margin-top : 6vmin                  !important; }
+.my-mt-4_5        { margin-top : 5vmin                  !important; }
+.my-mt-4          { margin-top : 4vmin                  !important; }
+.my-mt-3          { margin-top : 3vmin                  !important; }
+.my-mt-2          { margin-top : 2vmin                  !important; }
+.my-mb-2          { margin-bottom : 2vmin               !important; }
+.my-mb-3          { margin-bottom : 3vmin               !important; }
+.my-mb-4          { margin-bottom : 4vmin               !important; }
+.my-mb-5          { margin-bottom : 6vmin               !important; }
+.my-mb-6          { margin-bottom : 8vmin               !important; }
+.w-50             { width: 40%                          !important; }
+.mh-45vh          { max-height: 43vh                    !important; }
+.mh-50vh          { max-height: 50vh                    !important; }
+.mh-58vh          { max-height: 58vh                    !important; }
+.p-relative       { position: relative                  !important; }
+/* Margin / Padding / Width /// */
+
+/* Color \\\*/
+.PFPS-cyan        { color:#00badf                     !important; }
+.PFPS-cyan-bg     { background-color: #00badf         !important; }
+.PFPS-blue-lt     { color:rgb(7, 31, 53)              !important; }
+.PFPS-blue-dk     { color:rgb(7, 31, 53)              !important; }
+.PFPS-blue-lt-bg  { background-color:rgb(7, 31, 53)   !important; }
+.PFPS-blue-dk-bg  { background-color:rgb(7, 31, 53)   !important; }
+.whitecolor       { color:white                       !important; }
+.whitecolor-mild  { color:rgb(202, 200, 200)          !important; }
+.white-bg         { background-color:white            !important; }
+.dark-bg          { background-color:#4e4e4e          !important; }/* Tab bg    */
+.darker-bg        { background-color:#1b1b1b          !important; }/* Outercard */
+.darkest-bg       { background-color:#141518          !important; }/* Fullpage bg */
+/* Color ///*/
+/* Font-sizing \\\*/
+.f_3_2vmin        { font-size: 3.2vmin                  !important; }
+.vmin2            { font-size: 2vmin                    !important; }
+.vmin2_7          { font-size: 2.7vmin                  !important; }
+.vmin3            { font-size: 3vmin                    !important; }
+.vmin7            { font-size: 5vmin                    !important; }
+.vmin-fc          { font-size: 2.3vmin                  !important; }
+.vmin-fcl         { font-size: 2.1vmin                  !important; }
+.min-h-7vmin      { min-height: 7vmin                   !important; }
+.min-h-5vmin      { min-height: 5vmin                   !important; }
+.font-PFPS        { font-family: Roboto, "Helvetica Neue", sans-serif !important; }
+.font-PFPS2       { font-family: 'Signika', sans-serif !important; }
+/* Font-sizing ///*/
+
+
+
+.white-hr
+{
+  color: white; 
+  padding:0; 
+  margin:0;
+}
+
+/* Tabs */
+.tab-text
+{
+  display: inline-block;
+	transform: skew(20deg) !important;
+}
+.highlighted-tab
+{
+  display: inline-block;
+  box-shadow: 0 0 .3vmin .3vmin #00badf;
+  margin-left: 1vmin;
+  background-color: #00badf;
+  border-radius: 1vmin;
+  /* 7px before */
+}
+.non-highlighted-tab
+{
+  display: inline-block;
+  margin-left: 1vmin;
+  border-radius: 1vmin;
+  color: black;
+  background-color: white;
+}
+.non-highlighted-tab-light
+{
+  box-shadow: 0 0 .3vmin .3vmin #9b9b9b;
+  background-color: #ffffff;
+}
+.non-highlighted-tab-dark
+{
+  box-shadow: 0 0 .3vmin .3vmin #111111;
+  background-color: #4e4e4e;
+  color: white;
+}
+.tab-outline
+{
+  display: inline-block;
+  padding: .4vmin 0;
+	transform: skew(-25deg);
+	background: transparent;
+  position: relative;
+  z-index: 1;
+}
+/* Tabs /// */
+/* Forms */
+/* Valid Form (Textbox) <<<<--------------------------------------------------- */
+.fc
+{
+  border-radius: 0 !important;
+  font-size: 2.3vmin !important;
+}
+.fcl
+{
+  font-size: 2.1vmin !important;
+}
+.fc-light
+{
+  border-bottom: 1px solid rgb(230, 230, 230) !important;
+}
+.fc-dark
+{
+  border-bottom: 1px solid white !important;
+}
+.fc:focus
+{
+  border-bottom: 1px solid #119fbb !important;
+}
+.fc-dark:focus
+{
+  color: rgb(212, 211, 211);
+}
+.fc:focus + .fcl
+{
+  color: #119fbb !important;
+}
+.fc:not(:placeholder-shown) + .fcl 
+{
+  transform: translateY(-.9rem) scale(0.8);
+  background:none;
+}
+.fc-light:not(:placeholder-shown)
+{
+  box-shadow:0 .3vmin .8vmin -.3vmin #119fbb !important;
+  /* box-shadow: 0 3px 4px -2px #119fbb !important; */
+}
+.fc-dark:not(:placeholder-shown)
+{
+  box-shadow: 0 1.1vmin .8vmin -.7vmin #119fbb !important;
+  /* box-shadow: 0 6px 4px -5px #119fbb !important; */
+}
+/* Valid Form    (Textbox) ------------------------------------------------------>>>> */
+/* In-valid Form (Textbox) <<<<--------------------------------------------------- */
+.fcl-text
+{
+  position: relative;
+  z-index: 10;
+  bottom: 50% !important;
+}
+.fcr
+{
+  border-radius: 0 !important;
+}
+.fcr-light
+{
+  border-bottom: 1px solid rgb(230, 230, 230) !important;
+}
+.fcr-dark
+{
+  border-bottom: 1px solid white !important;
+}
+.fcr-light:focus
+{
+  border-bottom: 1px solid red !important;
+}
+.fcr-dark:focus
+{
+  border-bottom: 1px solid rgb(243, 91, 91) !important;
+  color: rgb(212, 211, 211);
+}
+.fcr-light:focus + .fcl
+{
+  color: red !important;
+}
+.fcr-dark:focus + .fcl
+{
+  color: rgb(243, 91, 91) !important;
+}
+.fcr:not(:placeholder-shown) + .fcl {
+  transform: translateY(-.9rem) scale(0.8);
+  background:none ;
+}
+.fcr-light:not(:placeholder-shown)
+{
+  box-shadow: 0 .3vmin .8vmin -.3vmin red !important;
+}
+.fcr-dark:not(:placeholder-shown)
+{
+  box-shadow:0 1.1vmin .8vmin -.7vmin rgb(243, 91, 91) !important;  
+}
+/* In-valid Form (Textbox)------------------------------------------------------>>>> */
+/* Errors */
+.mat-errors
+{
+  font-size: 1.8vmin !important;
+  position:absolute;
+}
+.bottom-37
+{
+  bottom:37% !important;
+}
+.mat-errors-light
+{
+  color: red;
+}
+.mat-errors-dark
+{
+  color: rgb(255, 85, 85);
+}
+/* Forms /// */
+/* Offcanvas \\\*/
+.mat-offcanvas-container
+{
+  height: 100%;
+}
+.mat-offcanvas
+{
+  width:50vmin;
+}
+.overall_sidenav
+{
+  display:grid;
+  grid-template-rows: 10% 80% 10%;
+  height: 100%;
+}
+.sidenav_header
+{
+  background-color: pink;
+}
+.sidenav_body
+{
+  display: grid;
+  align-items: center;
+  background: linear-gradient(rgb(236, 249, 255),rgb(255, 255, 255));
+}
+.sidenav_footer
+{
+}
+/* Offcanvas /// */
+/*  */
+/* Buttons ---*/
+/* Button  <<<<----------------------------------------- */
+.btnn
+{
+  min-width: 90%;
+  display: inline   !important;
+  text-align: center;
+  font-size: 1.8vmin    !important;
+  padding-left: 0   !important;
+  padding-right: 0  !important;
+}
+.btnn2
+{
+  display: inline   !important;
+  text-align: center;
+  font-size: 1vmin    !important;
+  padding: 1.5vmin 3vmin !important;
+}
+.btnn2-padding
+{
+  padding: 1vmin 2.5vmin !important;
+}
+.btnn3
+{
+  text-align: center;;
+  font-size: 1.8vmin !important;
+}
+/* Animated Btn */
+.btn-anime
+{
+  width: 100%;
+  text-align: center;
+  transition: all 1s !important;
+}
+.btn-anime-container
+{
+  display: grid;
+  place-items: center;
+}
+.btn-anime-text {
+  transition: 1s;
+  font-size: 1.7vmin   !important;
+}
+.btn-anime:hover .btn-anime-text 
+{
+  transform: translateX(-32%);
+}
+.btn-anime:hover
+{
+  background-color: rgb(7, 31, 53) !important;
+}
+/*  */
+.dark-btn
+{
+  background-color: rgb(7, 31, 53) !important;
+  color: white;
+}
+.dark-btn:hover
+{
+  color: white !important;
+  box-shadow: 0 0 1.3vmin .3vmin rgb(0, 0, 0);
+}
+.dark-btn-light
+{
+  color:white !important;
+  background-color: rgb(7, 31, 53) !important;
+}
+.dark-btn-light:hover
+{
+  color:white !important;
+  box-shadow: 0 0 1.3vmin .6vmin rgb(172, 172, 172);
+  background-color: rgb(2, 25, 46) !important;
+}
+.btn-radio
+{
+  box-shadow: none !important;
+  padding: .5vmin .7vmin !important;
+  width:100%;
+  text-align:start !important;
+  font-size: 2vmin !important;
+  text-decoration: none !important;
+  transition: none !important;
+}
+.btn-radio:hover
+{
+  background-color: #00badf !important;
+  color: white !important;
+}
+/* Button  ----------------------------------------->>>> */
+/* Buttons /// */

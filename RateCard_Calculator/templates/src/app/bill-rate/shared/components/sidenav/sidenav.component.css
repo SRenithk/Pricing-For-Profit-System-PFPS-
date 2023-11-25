@@ -1,0 +1,155 @@
+
+.sidenav_header
+{
+  display: grid;
+  align-content: center;
+}
+.LoggedIn_body
+{
+  height:90%;
+  display: grid;
+  grid-template-rows: 97% 3%;
+}
+.btn-close
+{
+  font-size: 2.2vmin !important;
+}
+.line-height-90
+{
+  line-height: 90%;
+}
+.offcanvas-outer-card
+{
+    display: grid;
+    min-height: 50vmin;
+    justify-items: center;
+    box-shadow: 0 0 1.7vmin .1vmin rgb(158, 158, 158);
+    border-radius: 1.5vmin !important;
+}
+.offcanvas-card-small{
+  display: grid;
+  align-items: center;
+  grid-template-columns: 93% auto;
+  box-shadow: 0 0 1.5vmin .1vmin rgb(192, 192, 192);
+  border-radius: 1.5vmin !important;
+  padding: 2vmin;
+  height:10%
+}
+.offcanvas-outer-card-content
+{
+  width: 90%;
+  display: grid;
+  align-items: stretch;
+}
+.off-btn-container
+{
+  display: grid;
+  grid-template-columns: repeat(2,50%);
+  justify-items: center;
+}
+/* Angular Material <<<<--------------------------------------------------- */
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+.example-full-width {
+  width: 100%;
+}
+::ng-deep .mat-autocomplete-panel
+{
+  max-height: 120px !important;
+}
+::ng-deep .mat-options
+{
+  max-height: 40px !important;
+}
+::ng-deep .mat-options-error
+{
+  max-height: 0px !important;
+}
+::ng-deep .mat-focused .mat-form-field-label1 {
+  color: #119fbb !important;            /*For label*/
+ }
+::ng-deep .mat-focused .mat-form-field-label-error {
+  color: #f44336 !important;            /*For label error*/
+ }
+::ng-deep.mat-form-field-ripple {
+ background-color: #119fbb !important;   
+}
+/* Angular Material ------------------------------------------------------>>>> */
+.my-select-options
+{
+  display: none;
+  background-color: white;
+  z-index: 2;
+  width: 100%;
+  position: absolute;
+  top: 100%
+}
+.drop-input:focus ~ .my-select-options
+{
+  display: block;
+}
+.my-select-options:hover
+{
+  display: block;
+}
+::ng-deep .mat-expansion-indicator::after  
+{
+    color:white ;
+}
+.edit-icon
+{
+  transition: .6s;
+  cursor: pointer;
+}
+.edit-icon:hover
+{
+  color:rgb(7, 31, 53) ;
+  transform:rotateY(360deg) scale(1.4);
+}
+.poppingText
+{
+  display: grid;
+  position: relative;
+}
+.poppingBtns
+{
+  position: absolute;
+  right: 3%;
+  top:30%;
+  /* bottom 10% before */
+}
+.poppingBtns2
+{
+  position: absolute;
+  right: 7%;
+  bottom:42.5%;
+}
+.eye-button
+{
+  background-color: transparent; 
+  border: none; 
+}
+.eye-btn-enable
+{
+  color:rgb(7, 31, 53);
+}
+.eye-btn-disable
+{
+  color:rgb(196, 220, 241);
+}
+.fp
+{
+  color:rgb(7, 31, 53);
+}
+.fp:hover 
+{
+  color:#00badf;
+}
+.logout_btn_container
+{
+  display: grid;
+  justify-content: center;
+}

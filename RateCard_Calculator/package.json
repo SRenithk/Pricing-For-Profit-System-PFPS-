@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "copy-image-clipboard": "^2.1.2"
+  }
+}

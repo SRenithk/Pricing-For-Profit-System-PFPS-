@@ -1,0 +1,303 @@
+<div class="overall_sidenav">
+    <div class="sidenav_header PFPS-blue-lt-bg">
+            <div class="container-fluid">
+              <span class="whitecolor">Welcome, 
+                <span class="PFPS-cyan" *ngIf="!welcomeName">User</span>
+                <span class="PFPS-cyan">{{welcomeName}}</span></span>
+              <button type="button" class="btn-close btn-close-white right-float" (click)="close_SideNav($event)"></button>
+            </div>
+    </div>
+    <div class="sidenav_body container-fluid">
+      <!-------------------- Logged In --------------------------->
+      <div class="LoggedIn_body" *ngIf="IsLoggedIn">
+        <!-- Angular Expansion Panel \\\ -->
+        <div>
+        <mat-accordion>
+          <span> 
+            <mat-expansion-panel class="b-radius-0" [expanded]="true" #pendingApprovals>
+                <mat-expansion-panel-header class="PFPS-blue-lt-bg min-h-7vmin font-PFPS2">
+                    <mat-panel-title class="vmin3 PFPS-cyan min-h-5vmin" >
+                        Currency Conversion
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div>
+                  <div class="card offcanvas-card-small PFPS-cyan-bg whitecolor vmin2_7 my-mt-2 font-PFPS2">
+                      <span>1 USD -> <span *ngIf="USD_INR_val">{{USD_INR_val.ConversionValue}}</span> INR </span>
+                      <input type="radio" #Currency_convert class="btn-check" (click)="EditClicked()" name="toEdit" id="edit_1"/>
+                      <label for="edit_1">
+                        <i class="fas fa-edit fa-sm edit-icon right-float"></i>
+                      </label>
+                  </div>
+                  <div *ngIf="Currency_convert.checked" class="poppingText">
+                    <div>
+                      <div class="form-outline my-mt-2">
+                        <input type="text" placeholder=" " #USD_INR_input  [formControl]="USD_INR_value" id="USD_INR_value" name="USD_INR_value" class="form-control fc"  [class]="dark ? (USD_INR_value.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (USD_INR_value.valid ? 'fc-light' :'fcr-light')" />
+                          <label class="form-label fcl" [class]="dark ? 'whitecolor-mild':'none'"  for="USD_INR_value">Enter value in INR</label>
+                          <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="USD_INR_value?.touched && USD_INR_value?.hasError('required')"> INR value is required! </mat-error>
+                          <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="USD_INR_value?.touched && USD_INR_value?.hasError('pattern')">Enter value in Numbers </mat-error>
+                            <div class="my-mt-2" *ngIf="USD_INR_value?.touched && USD_INR_value?.hasError('maxlength') && USD_INR_value?.hasError('pattern')"></div> <!--for spacing-->
+                          <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="USD_INR_value?.touched && USD_INR_value?.hasError('maxlength')">The value exceeds the limit </mat-error>
+                        </div>
+                    </div>
+                    <div class="poppingBtns">
+                      <div>
+                        <button type="button"  class="btn btn-info btnn2 p-2 me-1" 
+                          (click)="ValueAccept(Currency_convert.id)" [disabled]="USD_INR_value.invalid">
+                          <i class="fas fa-check fa-xl"></i>
+                        </button>
+                        <button type="button" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn2 p-2"
+                        (click)="ValueReject(Currency_convert.id)">
+                          <i class="fas fa-times fa-xl"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </mat-expansion-panel>
+          </span>
+          <span>
+            <mat-expansion-panel class="b-radius-0">
+                <mat-expansion-panel-header class="PFPS-blue-lt-bg min-h-7vmin font-PFPS2">
+                    <mat-panel-title class="vmin3 PFPS-cyan min-h-5vmin">
+                        Operation Cost
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div>
+                  <div class="card offcanvas-card-small PFPS-cyan-bg whitecolor vmin2_7 my-mt-4 font-PFPS2">
+                    <span>INR(₹) -> <span *ngIf="O_cost_INR_val">{{O_cost_INR_val.OperationCost_Value}}</span></span>
+                    <input type="radio" #O_cost_INR class="btn-check" (click)="EditClicked()" name="toEdit" id="edit_2"/>
+                    <label for="edit_2">
+                      <i class="fas fa-edit  fa-sm edit-icon right-float" ></i>
+                    </label>
+                  </div>
+                  <div *ngIf="O_cost_INR.checked" class="poppingText">
+                    <div>
+                      <div class="form-outline my-mt-2">
+                        <input type="text" placeholder=" " #O_cost_INR_input [formControl]="O_cost_INR_value" id="O_cost_INR_value" name="O_cost_INR_value" class="form-control fc"  [class]="dark ? (O_cost_INR_value.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (O_cost_INR_value.valid ? 'fc-light' :'fcr-light')" />
+                          <label class="form-label fcl" [class]="dark ? 'whitecolor-mild':'none'"  for="O_cost_INR_value">Enter Operation Cost in ₹</label>
+                          <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="O_cost_INR_value?.touched && O_cost_INR_value?.hasError('required')">Operation Cost is required!</mat-error>
+                          <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="O_cost_INR_value?.touched && O_cost_INR_value?.hasError('pattern')">Enter value in Numbers </mat-error>
+                            <div class="my-mt-2" *ngIf="O_cost_INR_value?.touched && O_cost_INR_value?.hasError('maxlength') && O_cost_INR_value?.hasError('pattern')"></div> <!--for spacing-->
+                          <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="O_cost_INR_value?.touched && O_cost_INR_value?.hasError('maxlength')">The value exceeds the limit </mat-error>
+                        </div>
+                    </div>
+                    <div class="poppingBtns">
+                      <div>
+                        <button type="button"  class="btn btn-info btnn2 p-2 me-1" 
+                          (click)="ValueAccept(O_cost_INR.id)" [disabled]="O_cost_INR_value.invalid">
+                          <i class="fas fa-check fa-xl"></i>
+                        </button>
+                        <button type="button" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn2 p-2"
+                        (click)="ValueReject(O_cost_INR.id)">
+                          <i class="fas fa-times fa-xl"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card offcanvas-card-small PFPS-cyan-bg whitecolor vmin2_7 my-mt-4 font-PFPS2">
+                    <span>USD($) -> <span *ngIf="O_cost_USD_val">{{O_cost_USD_val.OperationCost_Value}}</span></span>
+                    <input type="radio" #O_cost_USD class="btn-check" (click)="EditClicked()" name="toEdit" id="edit_3"/>
+                    <label for="edit_3">
+                      <i class="fas fa-edit  fa-sm edit-icon right-float"></i>
+                    </label>
+                  </div>
+                  <div *ngIf="O_cost_USD.checked" class="poppingText">
+                    <div>
+                      <div class="form-outline my-mt-2">
+                        <input type="text" placeholder=" " #O_cost_USD_input [formControl]="O_cost_USD_value" id="O_cost_USD_value" name="O_cost_USD_value" class="form-control fc"  [class]="dark ? (O_cost_USD_value.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (O_cost_USD_value.valid ? 'fc-light' :'fcr-light')" />
+                          <label class="form-label fcl" [class]="dark ? 'whitecolor-mild':'none'"  for="O_cost_USD_value">Enter Operation Cost in $</label>
+                          <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="O_cost_USD_value?.touched && O_cost_USD_value?.hasError('required')">Operation Cost is required!</mat-error>
+                          <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="O_cost_USD_value?.touched && O_cost_USD_value?.hasError('pattern')">Enter value in Numbers </mat-error>
+                          <div class="my-mt-2" *ngIf="O_cost_USD_value?.touched && O_cost_USD_value?.hasError('maxlength') && O_cost_USD_value?.hasError('pattern')"></div> <!--for spacing-->
+                          <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="O_cost_USD_value?.touched && O_cost_USD_value?.hasError('maxlength')">The value exceeds the limit </mat-error>
+                        </div>
+                    </div>
+                    <div class="poppingBtns">
+                      <div>
+                        <button type="button"  class="btn btn-info btnn2 p-2 me-1" 
+                          (click)="ValueAccept(O_cost_USD.id)" [disabled]="O_cost_USD_value.invalid">
+                          <i class="fas fa-check fa-xl"></i>
+                        </button>
+                        <button type="button" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn2 p-2"
+                        (click)="ValueReject(O_cost_USD.id)">
+                          <i class="fas fa-times fa-xl"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </mat-expansion-panel>
+          </span>
+        </mat-accordion>
+        </div>
+        <!-- Angular Expansion Panel /// -->
+        <div class="logout_btn_container">
+          <button type="button" (click)="Logout(this.welcomeName,'logout')" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn3 whitecolor" >
+            Logout
+          </button>
+        </div>
+      </div>
+      <!-------------------- Logged In -----------------////////-->
+      <!-------------------- Logged Out --------------------------->
+      <div *ngIf="!IsLoggedIn">
+        <div>
+          <!-- Offcanvas Tab -->
+          <span class="tab-outline line-height-90"> 
+            <input type="radio" #Reg class="btn-check" name="s2" id="t4" (click)="auto()"/>
+            <label for="t4">
+              <span class="pointer" [class]="Reg.checked ? ('highlighted-tab whitecolor' ) : ( dark ? 'non-highlighted-tab-dark non-highlighted-tab' : 'non-highlighted-tab-light non-highlighted-tab')" >
+                <span class="ms-1 px-3 tab-text vmin2">Register </span>
+              </span>
+            </label>
+          <input type="radio" #Login class="btn-check" name="s2" id="t5" checked (click)="auto()"/>
+          <label for="t5">
+            <span class="pointer" [class]="Login.checked ? ('highlighted-tab whitecolor' ) : ( dark ? 'non-highlighted-tab-dark non-highlighted-tab' : 'non-highlighted-tab-light non-highlighted-tab')" >
+              <span class="px-3 tab-text vmin2">Log in</span>
+            </span>
+          </label>
+        </span>
+        <!-- Offcanvas Tab    ///-->
+        <div class="card offcanvas-outer-card">
+          <!-- Log In Screen  \\\ -->
+          <div *ngIf="Login.checked && !isForgotPass" class="offcanvas-outer-card-content">
+            <div  class="my-mt-4 f_3_2vmin">Log In</div>
+            <form autocomplete="off" class="LoginForm " [formGroup]="LoginForm" method="POST">
+              <div class="form-outline my-mt-4 my-mb-5">
+                <input type="text" placeholder=" " formControlName="username_Login" id="username_Login" name="username_Login" class="form-control fc"  [class]="dark ? (username_Login?.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (username_Login?.valid ? 'fc-light' :'fcr-light')" />
+                  <label class="form-label fcl" [class]="dark ? 'whitecolor-mild':'none'"  for="username_Login">Username / E-mail</label>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="username_Login?.touched && username_Login?.hasError('required')"> Username / E-mail is required! </mat-error>
+                  <!-- <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="username_Login?.touched && username_Login?.hasError('pattern')">Special Characters not allowed! </mat-error> -->
+              </div>
+              <div class="form-outline my-mb-5">
+                <input type="{{ show_password_switch ? 'text' : 'password' }}" placeholder=" " formControlName="password_Login" id="password_Login" name="password_Login" class="form-control fc"  [class]="dark ? (password_Login?.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (password_Login?.valid ? 'fc-light' :'fcr-light')" />
+                  <label class="form-label fcl" [class]="dark ? 'whitecolor-mild':'none'"  for="password_Login">Password</label>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="password_Login?.touched && password_Login?.hasError('required')"> Password is required! </mat-error>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="password_Login?.touched && password_Login?.hasError('minlength')">Minimum 8 characters required! </mat-error>
+              </div>
+              <div class="poppingBtns2">
+                <div>
+                  <button type="button" class="eye-button" [class]="(password_Login?.value ==''|| password_Login?.value == null) ? 'eye-btn-disable' : 'eye-btn-enable'"
+                  (click)="show_password()" [disabled]="password_Login?.value =='' || password_Login?.value == null">
+                    <i class="fas fa-sm" [class]="this.show_password_switch ? 'fa-eye-slash' : 'fa-eye'"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- Forgot Password Link -->
+                  <span class="vmin2 pointer underline fp" (click)="EnableFP()">Forgot Password</span>
+              <!-- Forgot Password Link -->
+              <div class="my-mt-4 off-btn-container my-mt-7">
+                <button *ngIf="LoginBtnText == 'Login'" type="button" [disabled]="LoginForm.invalid" class="btn btnn btn-info me-2" (click)="Loginsave()">
+                  Login
+                </button>
+                <button *ngIf="LoginBtnText == 'Req'" type="button" [disabled]="LoginForm.invalid" class="btn btnn btn-info me-2" (click)="RequestAgain()">
+                  Request Again
+                </button>
+                <button type="button" [disabled]="LoginForm.pristine"  (click)="Loginclear()" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn whitecolor" >
+                  Clear
+                </button>
+              </div>
+            </form>
+          </div>
+          <!-- Log In Screen /// -->
+          <!-- Reg Screen \\\--->
+          <div *ngIf="Reg.checked && !isForgotPass" class="offcanvas-outer-card-content">
+            <div  class="my-mt-2 f_3_2vmin">Register</div>
+            <form autocomplete="off" class="RegisterForm " [formGroup]="RegisterForm" method="POST">
+              <div class="form-outline my-mt-3 my-mb-5">
+                <input type="text" placeholder=" " formControlName="username" id="username" name="username" class="form-control fc"  [class]="dark ? (username?.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (username?.valid ? 'fc-light' :'fcr-light')" />
+                  <label class="form-label fcl" [class]="dark ? 'whitecolor-mild':'none'"  for="username">Username</label>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="username?.touched && username?.hasError('required')">Username is  required! </mat-error>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="username?.touched && username?.hasError('pattern')">Special Characters not allowed! </mat-error>
+              </div>
+              <div class="form-outline my-mb-5">
+                <input type="password" placeholder=" " formControlName="password" id="password" name="password" class="form-control fc"  [class]="dark ? (password?.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (password?.valid ? 'fc-light' :'fcr-light')" />
+                  <label class="form-label fcl" [class]="dark ? 'whitecolor-mild':'none'"  for="password">Password</label>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="password?.touched && password?.hasError('required')"> Password is required! </mat-error>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="password?.touched && password?.hasError('minlength')">Minimum 8 characters required! </mat-error>
+              </div>
+              <div class="form-outline my-mb-5">
+                <input type="password" placeholder=" " formControlName="c_password" id="c_password" name="c_password" class="form-control fc"  [class]="dark ? (c_password?.valid && match_password()? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (c_password?.valid  && match_password()? 'fc-light' :'fcr-light')" />
+                  <label class="form-label fcl" [class]="dark ? 'whitecolor-mild':'none'"  for="c_password">Confirm Password</label>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="c_password?.touched && c_password?.hasError('required')">Confirm Password is required! </mat-error>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="c_password?.touched && c_password?.hasError('minlength')">Minimum 8 characters required! </mat-error>
+                  <div class="my-mt-2" *ngIf="(c_password?.touched && c_password?.hasError('minlength')) || c_password?.value =='' ||c_password?.value == null"   ></div>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="c_password?.touched && !match_password()">Passwords didn't match</mat-error>
+              </div>
+              
+              <div class="form-outline my-mb-5">
+                <input type="email" placeholder=" " formControlName="email" id="email" name="email" class="form-control fc"  [class]="dark ? (email?.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (email?.valid ? 'fc-light' :'fcr-light')" />
+                  <label class="form-label fcl" [class]="dark ? 'whitecolor-mild':'none'"  for="email">E-mail</label>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="email?.touched && email?.hasError('required')"> E-mail is required! </mat-error>
+                  <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="email?.touched && email?.hasError('pattern')"> Enter Valid E-mail </mat-error>
+              </div>
+              
+              <div class="form-outline my-mb-4">
+                <!-- readonly style="background-color:white"  to prevent user from typing-->
+                <input type="text" placeholder=" "  formControlName="role" id="role" name="role" (click)="role_switch()" class="form-control fc drop-input"  [class]="dark ? (role?.valid && Rolecheck() ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (role?.valid && Rolecheck() ? 'fc-light' :'fcr-light')" />
+                  <label class="form-label fcl"  [class]="dark ? 'whitecolor-mild':'none'"  for="role">Role</label>
+                  <div class="my-select-options">
+                    <div *ngFor="let roleType of service.RoleType">
+                      <label *ngIf="show_roleTypes" class="btn btn-radio capitalize" (click)="assignRole(roleType)" for="option1">{{roleType}}
+                        <!-- <span class="btn-currency right-float">₹</span> -->
+                      </label>
+                    </div>
+                  </div>
+                  
+                <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="role?.touched && role?.hasError('required')"> Role is required! </mat-error>
+                <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="role?.touched && !Rolecheck() && role?.value!='' && role?.value!=null"> Choose valid option </mat-error>
+              </div>
+              <div class="off-btn-container my-mb-3">
+                <button type="button" [disabled]="RegisterForm.invalid || !match_password() || !Rolecheck()" class="btn btnn btn-info me-2" (click)="Regsave()">
+                  Sign Up
+                </button>
+                <button type="button" [disabled]="RegisterForm.pristine && !RegClear_btn"  (click)="Regclear()" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn whitecolor" >
+                  Clear
+                </button>
+              </div>
+            </form>
+          </div>
+          <!-- Reg Screen ///--->
+          <!-- Forgot Password Screen \\\--->
+          <div *ngIf="isForgotPass" class="offcanvas-outer-card-content">
+            <div> <!--needed for alignment-->
+              <div  class="my-mt-4 f_3_2vmin">Reset Password</div>
+              <div>
+                <div class="vmin2_7 my-mt-5">Enter your E-mail address</div>
+                <div class="poppingText">
+                  <div>
+                    <div class="form-outline my-mt-4">
+                      <input type="text" placeholder=" " #forgot_pass [formControl]="email_forgot" id="email_forgot" name="email_forgot" class="form-control fc"  [class]="dark ? (email_forgot.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (email_forgot.valid ? 'fc-light' :'fcr-light')" />
+                        <label class="form-label fcl" [class]="dark ? 'whitecolor-mild':'none'"  for="email_forgot">E-mail</label>
+                        <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="email_forgot?.touched && email_forgot?.hasError('required')">E-mail is required</mat-error>
+                        <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="email_forgot?.touched && email_forgot?.hasError('pattern')">Enter valid E-mail</mat-error>
+                    </div>
+                  </div>
+                  <div class="poppingBtns">
+                    <div>
+                      <button type="button" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn2 my-mt-2 p-2" 
+                      (click)="ValueReject(forgot_pass.id)" [disabled]="email_forgot.pristine">
+                        <i class="fas fa-times fa-xl"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="off-btn-container my-mt-8">
+                  <button type="button" (click)="ValueAccept(forgot_pass.id)" [disabled]="email_forgot.invalid" class="btn btnn btn-info me-2">
+                    Submit
+                  </button>
+                  <button type="button" (click)="backtoLogin()" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn whitecolor" >
+                    Back to Login
+                  </button>
+                </div>
+              </div>
+            </div>
+          <!-- Forgot Password Screen ///--->
+          </div>
+        </div>
+      </div>
+      </div>
+      <!-------------------- Logged Out -----------------////////-->
+    </div>
+    <div class="sidenav_footer PFPS-blue-lt-bg my-mt-3">
+    </div>
+  </div>

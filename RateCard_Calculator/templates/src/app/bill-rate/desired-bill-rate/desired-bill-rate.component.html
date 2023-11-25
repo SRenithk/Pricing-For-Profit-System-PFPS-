@@ -1,0 +1,275 @@
+<mat-sidenav-container class="mat-offcanvas-container">
+  <mat-sidenav class="mat-offcanvas" #sidenav position="end" (click)="sidenav.toggle">
+    <!-- Sidenav Content -->
+    <app-sidenav  (DataEmitter)="sidenav.toggle()" 
+                  (Call_GetCurrencyinParent)="Call_GetCurrencyFromChild($event)"
+                  (Call_Get_O_cost_INR_inParent)="Call_GetOperationCost_INR_FromChild($event)"
+                  (Call_Get_O_cost_USD_inParent)="Call_GetOperationCost_USD_FromChild($event)"
+                  ></app-sidenav>
+    <!-- Sidenav Content ///-->
+  </mat-sidenav>
+  <mat-sidenav-content>
+<div class="fullpage" [class]="!DBR_Tab?(dark?'backdrop full-Page-dark':'backdrop full-Page-light'):(dark?'full-Page-dark':'full-Page-light')"> 
+      <!--"!DBR_Tab?(dark?'':''):(dark?'':'')"-->
+      <!-- TOP NAV \\\-->
+      <app-topnav (IsCheckedEmitter)="IsChecked($event)" [sideNav_Parent]="sidenav"></app-topnav>
+      <!-- TOP NAV ///-->
+      <div class="content">
+        <div class="my-mt-4_5">
+          <!-- Tabs -->
+          <div class="p-relative" *ngIf="!this.service.isViewSubCalcutions">
+            <span class="ms-2 tab-outline p-absolute">
+              <input type="radio" #IKBR class="btn-check" name="s1" id="t1" (click)="tab_change_IKBR()" [disabled]="IKBR_Btn"/>
+              <label for="t1">
+                <span class="pointer lineheight-90 "
+                  [class]="IKBR_Tab ? ('highlighted-tab whitecolor' ) : ( dark ? 'non-highlighted-tab-dark non-highlighted-tab' : 'non-highlighted-tab-light non-highlighted-tab')">
+                  <span class="ms-1 px-3 tab-text vmin2 ">I Know Bill Rate </span>
+                </span>
+              </label>
+              <input type="radio" #DBR class="btn-check" name="s1" id="t2" checked (click)="tab_change_DBR()" />
+              <label for="t2">
+                <span class="pointer lineheight-90"
+                  [class]="DBR_Tab ? ('highlighted-tab whitecolor' ) : ( dark ? 'non-highlighted-tab-dark non-highlighted-tab' : 'non-highlighted-tab-light non-highlighted-tab')">
+                  <span class="px-3 tab-text vmin2 ">Desired Bill Rate</span>
+                </span>
+              </label>
+              <input type="radio" #BC class="btn-check" name="s1" id="t3" (click)="tab_change_BC()" [disabled]="BC_Btn"/>
+              <label for="t3">
+                <span class="pointer lineheight-90"
+                  [class]="BC_Tab ? ('highlighted-tab whitecolor' ) : ( dark ? 'non-highlighted-tab-dark non-highlighted-tab' : 'non-highlighted-tab-light non-highlighted-tab')">
+                  <span class="px-3 tab-text vmin2 ">Backfill Comparison</span>
+                </span>
+              </label>
+            </span>
+          </div>
+          <!-- Tabs ///-->
+          <div class="card outer-card" >
+            <!-- [class]="!DBR.checked?(dark ? 'tab-inactive card-body1-dark': 'tab-inactive card-body1-light'):(dark ? 'card-body1-dark': 'card-body1-light')" -->
+            <!-- I Know Bill Rate ----->
+            <div class="mid-txt-container" *ngIf="IKBR_Tab">
+              <span class="mid-txt">
+                It's under development <br>
+                Redirecting to Desired Bill Rate<span class="dot dot1">.</span> <span class="dot dot2">.</span> <span class="dot dot3">.</span>
+                <br>
+                {{Timer}}
+              </span>
+            </div>
+            <!-- I Know Bill Rate ///-->
+            <!-- Desired Bill Rate ----->
+            <div *ngIf="DBR_Tab" class="card-body outer-card-content">
+              <div class="body-1">
+                <div class="body-1-heading my-mt-2"[class]="dark ? 'whitecolor':'none'">
+                  Desired Bill Rate
+                </div>
+                <form class="body-1-form" autocomplete="off" [formGroup]="CalculateForm" method="POST">
+                  <div class="form-outline">
+                    <input type="text" placeholder=" " [matAutocomplete]="auto" formControlName="emp_name" 
+                      id="employeename" name="employeename" class="form-control fc"
+                      [readOnly]="this.service.isViewSubCalcutions"
+                      [class]="dark ? (emp_name?.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (emp_name?.valid ? 'fc-light' :'fcr-light')" />
+                    <label class="form-label fcl fcl-text" [class]="dark ? 'whitecolor-mild':'none'" for="employeename">Employee Name</label>
+                    <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="emp_name?.touched && emp_name?.hasError('required')"> Employee Name is required!</mat-error>
+                    <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="emp_name?.touched && emp_name?.hasError('pattern' )"> Only Alphabets! </mat-error>
+                      <div class="my-mt-3" *ngIf="emp_name?.touched && emp_name?.hasError('minlength') && emp_name?.hasError('pattern')"></div> <!--for spacing-->
+                    <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="emp_name?.touched && emp_name?.hasError('minlength' )"> Minimum 3 characters required! </mat-error>
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <div>
+                        <mat-option  *ngFor="let option of filteredOptions | async" [value]="option">
+                          <div class="autocomplete-txt" >
+                            {{option}}
+                          </div>
+                        </mat-option>
+                      </div>
+                    </mat-autocomplete>
+                  </div>
+                  <!---------- CTC ---------->
+                  <div class="form-outline">
+                    <input type="text" placeholder=" " formControlName="ctc" id="ctc" name="ctc" class="form-control fc" 
+                    [readOnly]="this.service.isViewSubCalcutions"
+                    [class]="dark ? (ctc?.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (ctc?.valid ? 'fc-light' :'fcr-light')" />
+                    <label class="form-label fcl fcl-text" [class]="dark ? 'whitecolor-mild':'none'" for="ctc">CTC ( in <span class="symbol" *ngIf="Currency_val=='INR'">₹</span><span class="symbol" *ngIf="Currency_val=='USD'">$</span> )</label>
+                    <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="ctc?.touched && ctc?.hasError('required')"> CTC is required! </mat-error>
+                    <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="ctc?.touched && ctc?.hasError('pattern')"> Only Numbers! </mat-error>
+                  </div>
+                  <!--------- Markup --------->
+                  <div class="form-outline">
+                    <input type="text" placeholder=" " formControlName="markup" id="markup" name="markup" class="form-control fc" 
+                    [readOnly]="this.service.isViewSubCalcutions"
+                    [class]="dark ? (markup?.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (markup?.valid ? 'fc-light' :'fcr-light')" />
+                    <label class="form-label fcl fcl-text" [class]="dark ? 'whitecolor-mild':'none'" for="markup">Markup (%)</label>
+                    <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="markup?.touched && markup?.hasError('required')"> Markup is required! </mat-error>
+                    <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="markup?.touched && markup?.hasError('pattern')">Only Numbers! </mat-error>
+                  </div>
+                  <!-- Total Hours -->
+                  <div class="form-outline">
+                    <input type="text" placeholder=" " formControlName="t_hours" id="totalhours" name="totalhours" class="form-control fc" 
+                    [readOnly]="this.service.isViewSubCalcutions"
+                    [class]="dark ? (t_hours?.valid ? 'fc-dark whitecolor' :'fcr-dark whitecolor') : (t_hours?.valid ? 'fc-light' :'fcr-light')" />
+                    <label class="form-label fcl fcl-text" [class]="dark ? 'whitecolor-mild':'none'" for="totalhours">Total Hours per month</label>
+                    <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="t_hours?.touched && t_hours?.hasError('required')"> Total Hours is required! </mat-error>
+                    <mat-error class="mat-errors" [class]="dark ? 'mat-errors-dark' : 'mat-errors-light'" *ngIf="t_hours?.touched && t_hours?.hasError('pattern')">Only Numbers! </mat-error>
+                  </div>
+                </form>
+                <div class="body-1-buttons" *ngIf="!this.service.isViewSubCalcutions">
+                  <button value="new" type="submit" [disabled]="CalculateForm.invalid" #clicked (click)="calculate(clicked.click)" class="btn btn-info btnn">
+                    Calculate
+                  </button>
+                  <button type="button" [disabled]="!save_btn" class="btn btn-info btnn" (click)="save()">
+                    Submit
+                  </button>
+                  <button type="button" [disabled]="CalculateForm.pristine && !clr_btn" (click)="clear()" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn">
+                    Clear
+                  </button>
+                </div>
+                <div class="btn-anime-container">
+                  <button type="button" *ngIf="this.service.isViewSubCalcutions" class="btn btn-info btn-anime " (click)="backtoAdmin()">
+                  <div class="btn-anime-text"> Back to Admin Page </div> 
+                    <!-- <i class="fas fa-long-arrow-alt-left"></i> -->
+                  </button>
+                </div>
+              </div>
+              <div class="body-2">
+                <div class="card right-card" [class]="dark ? 'rightbox-dark' : 'rightbox-light'" #screen>
+                  <div class="card-body right-card-overall-content">
+                    <div class="right-card-header ">
+                      <div class="right-card-txt-headings">Name :
+                        <!-- removed right-card-txt-headings -->
+                        <span class=" PFPS-cyan" id="E-Name">{{Emp_name}}</span>
+                      </div>
+                      <div class="right-card-txt-headings">CTC / Annum :
+                        <span class="right-card-txt-values" *ngIf="Currency_val=='INR'">
+                          {{ctc_perAnnum | iNRCurrency:[]}}
+                        </span>
+                        <span class="right-card-txt-values" *ngIf="Currency_val=='USD'">
+                          {{ctc_perAnnum | currency:'USD' : 'symbol' : '1.2-2'}}
+                          <span class="right-card-txt-values"  *ngIf="ctc_perAnnum==''">$</span>
+                        </span>
+                      </div>
+                      <div class="mt-2_5_percent icon-container" *ngIf="ctc_perAnnum!=''">
+                        <i class="fas fa-copy copy PFPS-cyan-bg whitecolor"
+                        (click)="snackbar()" matTooltip="Copy as Image"></i>
+                        <!-- [cdkCopyToClipboard]="copy_value"  -->
+                        <i class="fas fa-download export PFPS-cyan-bg whitecolor" 
+                        (click)="exportExcel()" matTooltip="Export to Excel" >
+                        </i>
+                      </div>
+                      <hr class="whitecolor p0-m0">
+                    </div>
+                    <div class="right-card-body" *ngIf="ctc_perAnnum!=''">
+                      <div class="right-card-body-top">
+                        <div class="ctc">
+                          <div class="right-card-txt-headings">CTC
+                            <i class="fas fa-info-circle fa-2xs info-icon pointer" [matTooltip]="Tooltip_CTC" matTooltipPosition="below"></i>
+                          </div>
+                          <div>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='INR'">{{ctc_perMonth | iNRCurrency:[]}}</span>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='USD'">{{ctc_perMonth | currency:'USD' : 'symbol' : '1.2-2'}}</span>
+                            <span class="right-card-txt-headings"> / Month</span>
+                          </div>
+                          <div>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='INR'">{{ctc_perHour | iNRCurrency:[]}}</span>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='USD'">{{ctc_perHour | currency:'USD' : 'symbol' : '1.2-2'}}</span>
+                            <span class="right-card-txt-headings"> / Hour</span>
+                          </div>
+                          <div>
+                            <!--Empty div needed for alignment-->
+                          </div>
+                        </div>
+                        <div class="total-base-cost">
+                          <div class="right-card-txt-headings">Total Base cost
+                            <i class="fas fa-info-circle fa-2xs info-icon pointer" [matTooltip]="Tooltip_TBC" matTooltipPosition="below"></i>
+                          </div>
+                          <div>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='INR'">{{tbc_perMonth | iNRCurrency:[]}}</span>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='USD'">{{tbc_perMonth | currency:'USD' : 'symbol' : '1.2-2'}}</span>
+                            <span class="right-card-txt-headings"> / Month</span>
+                          </div>
+                          <div>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='INR'">{{tbc_perHour | iNRCurrency:[]}}</span>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='USD'">{{tbc_perHour | currency:'USD' : 'symbol' : '1.2-2'}}</span>
+                            <span class="right-card-txt-headings"> / Hour</span>
+                          </div>
+                          <div>
+                            <!--Empty div needed for alignment-->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-card-body-bottom">
+                        <div class="markup">
+                          <div class="right-card-txt-headings">Markup
+                            <i class="fas fa-info-circle fa-2xs info-icon pointer" [matTooltip]="Tooltip_Markup" matTooltipPosition="below"></i>
+                          </div>
+                          <div>
+                            <span class="right-card-txt-values"*ngIf="Currency_val=='INR'">{{markup_perMonth | iNRCurrency:[]}}</span>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='USD'">{{markup_perMonth | currency:'USD' : 'symbol' : '1.2-2'}}</span>
+                            <span class="right-card-txt-headings"> / Month</span>
+                          </div>
+                          <div>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='INR'">{{markup_perHour | iNRCurrency:[]}}</span>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='USD'">{{markup_perHour | currency:'USD' : 'symbol' : '1.2-2'}}</span>
+                            <span class="right-card-txt-headings"> / Hour</span>
+                          </div>
+                          <div>
+                            <!--Empty div needed for alignment-->
+                          </div>
+                        </div>
+                        <div class="recommended-bill-rate">
+                          <div class="right-card-txt-headings">Recommended Bill Rate
+                            <i class="fas fa-info-circle fa-2xs info-icon pointer" [matTooltip]="Tooltip_RBR" matTooltipPosition="below"></i>
+                          </div>
+                          <div>
+                            <span class="right-card-txt-values"*ngIf="Currency_val=='INR'">{{rbr_perMonth | iNRCurrency:[]}}</span>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='USD'">{{rbr_perMonth | currency:'USD' : 'symbol' : '1.2-2'}}</span>
+                            <span class="right-card-txt-headings"> / Month</span>
+                          </div>
+                          <div>
+                            <span class="right-card-txt-values"*ngIf="Currency_val=='INR'">{{rbr_perHour | iNRCurrency:[]}}</span>
+                            <span class="right-card-txt-values" *ngIf="Currency_val=='USD'">{{rbr_perHour | currency:'USD' : 'symbol' : '1.2-2'}}</span>
+                            <span class="right-card-txt-headings"> / Hour</span>
+                          </div>
+                          <div>
+                            <!--Empty div needed for alignment-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="right-card-body-initial"  *ngIf="ctc_perAnnum==''">
+                      <div class="right-card-body-initial-content">
+                        <div class="right-card-txt-initial">The Detailed Information will </div>
+                        <div class="right-card-txt-initial"> be displayed here... </div>
+                      </div>
+                    </div>
+                    <div class="right-card-footer">
+                      <hr class="whitecolor p0-m0">
+                      <div class="right-card-txt-headings operation-cost">Operation Cost per Hour:
+                        <span class="PFPS-cyan" *ngIf="Currency_val=='INR' && O_cost_INR">₹{{O_cost_INR}}
+                          <!-- <span class="whitecolor vmin2" *ngIf="service.isViewSubCalcutions"> (Might differ from current value) </span> -->
+                        </span>
+                        <span class="PFPS-cyan" *ngIf="Currency_val=='USD' && O_cost_USD">${{O_cost_USD}}
+                          <!-- <span class="whitecolor vmin2" *ngIf="service.isViewSubCalcutions"> (Might differ from current value)</span> -->
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Desired Bill Rate ///-->
+            <!-- Backfill Comparison ----->
+            <div class="mid-txt-container" *ngIf="BC_Tab">
+              <span class="mid-txt">
+                It's under development <br>
+                Redirecting to Desired Bill Rate<span class="dot dot1">.</span> <span class="dot dot2">.</span> <span class="dot dot3">.</span>
+                <br>
+                {{Timer}}
+              </span>
+            </div>
+            <!-- Backfill Comparison ///-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<!-- <button (click)="service.sendEmail('User Access request')">send mail</button>
+<button (click)="service.add_email_contact()" >add contact</button> -->

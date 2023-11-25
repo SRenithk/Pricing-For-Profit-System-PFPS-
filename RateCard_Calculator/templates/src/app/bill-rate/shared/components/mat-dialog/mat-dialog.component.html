@@ -1,0 +1,53 @@
+<span *ngIf="data.dialogType === 'delete'">
+  <span class="mat-dialog-head">Confirm Deletion</span>
+  <div class="mat-dialog-body vmin-fcl line-height-3">
+    Are you sure you want to delete all data that is relevant to
+    <strong class="vmin-fcl PFPS-cyan">{{data.row.emp_name}} ?</strong>
+  </div>
+  <div class="mat-dialog-btn">
+    <button mat-button mat-dialog-close [mat-dialog-close]="'deleted'" cdkFocusInitial 
+      type="button"  class="btn btn-info btnn2 btnn2-padding me-2" >
+        <i class="fas fa-check fa-2x"></i>
+    </button>
+    <button mat-button mat-dialog-close type="button" [class]="dark ? 'dark-btn':'dark-btn-light'" 
+      class="btn btnn2 btnn2-padding">
+        <i class="fas fa-times fa-2x"></i>
+    </button>
+  </div>
+</span>
+
+<span *ngIf="data.dialogType === 'deny'">
+  <span class="mat-dialog-head">Deny / Remove Access</span>
+  <div class="mat-dialog-body vmin-fcl line-height-3">
+    Are you sure you want to deny / remove 
+    <strong class="vmin-fcl PFPS-cyan">{{data.row.username}}'s</strong> {{data.row.role}} access?
+  </div>
+  <div class="mat-dialog-btn">
+    <button mat-button mat-dialog-close [mat-dialog-close]="'denied'" cdkFocusInitial 
+      type="button"  class="btn btn-info btnn2 btnn2-padding me-2" >
+        <i class="fas fa-check fa-2x"></i>
+    </button>
+    <button mat-button mat-dialog-close type="button" [class]="dark ? 'dark-btn':'dark-btn-light'" 
+      class="btn btnn2 btnn2-padding">
+        <i class="fas fa-times fa-2x"></i>
+    </button>
+  </div>
+</span>
+
+<span *ngIf="data.dialogType === 'logout'">
+  <span class="mat-dialog-head">Confirm logout</span>
+  <div class="mat-dialog-body vmin-fcl line-height-3">
+    Are you sure you want to logout, <strong class="vmin-fcl PFPS-cyan">{{data.row}}</strong> ?
+  </div>
+  <div class="mat-dialog-btn">
+    <button mat-button mat-dialog-close [mat-dialog-close]="'loggedout'" cdkFocusInitial 
+      type="button"  class="btn btn-info btnn2 btnn2-padding me-2" >
+        <i class="fas fa-check fa-2x"></i>
+    </button>
+    <button mat-button mat-dialog-close type="button" [class]="dark ? 'dark-btn':'dark-btn-light'" 
+      class="btn btnn2 btnn2-padding">
+        <i class="fas fa-times fa-2x"></i>
+    </button>
+  </div>
+</span>
+

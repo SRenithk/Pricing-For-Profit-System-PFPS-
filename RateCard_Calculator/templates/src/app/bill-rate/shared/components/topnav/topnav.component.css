@@ -1,0 +1,88 @@
+/* Moved to Nav Delete from desiredbillrate once confirmed \\\ */
+.drophover
+{
+  position: relative;
+  display: inline-block;
+  padding-bottom:.2em;
+}
+.dropdown-content 
+{
+  display: none;
+  position: absolute;
+  margin-top: .15em !important;
+  background-color: #f9f9f9;
+  width: auto;
+  box-shadow: 0px 1vmin 1.9vmin 0px rgba(0,0,0,0.2);
+  border-radius: .2em !important;
+  z-index: 1;
+}
+.drophover:hover .dropdown-content 
+{
+  display: block;
+}
+.drop-btn
+{
+    font-size: 2vmin !important;
+    /* font-size: .8rem !important; */
+}
+.btn2
+{
+    padding: 1vmin 2.5vmin !important;
+    /* padding: .6em 1.4em !important; */
+}
+.dark-bg
+{
+  background-color: rgb(95, 95, 95) !important;
+}
+.light-theme
+{
+  display: grid;
+  padding:7px 7px;
+  background-color:rgb(7, 31, 53);
+  border-radius:20px;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0 5px 2px #9b9b9b;
+  cursor: pointer;
+  position: relative;
+  bottom: 3px;
+}
+.dark-theme
+{
+  display: grid;
+  padding:4px 4px;
+  background-color:rgb(255, 255, 255);
+  border-radius:20px;
+  color: rgb(255, 208, 0);
+  box-shadow: 0 0 5px 1px rgb(255, 248, 238);
+  cursor: pointer;
+}
+.theme-btn-container
+{
+  display:inline-block; 
+}
+
+.btn-currency
+{
+  font-size: 2.1vmin !important;
+  position: relative;
+  bottom: .18vmin;
+}
+.btn-radio:hover
+{
+  background-color: #00badf;
+  color: white;
+}
+/* Moved to Nav Delete from desiredbillrate once confirmed /// */
+::ng-deep.mat-badge-content{
+  background : #00badf;
+  color:white;
+  font-size: 2vmin;
+  margin: .8vmin .8vmin 0 0 ;
+}
+.topnav-end-container
+{
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+
+}

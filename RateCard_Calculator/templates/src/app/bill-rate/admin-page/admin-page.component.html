@@ -1,0 +1,286 @@
+<mat-sidenav-container class="mat-offcanvas-container">
+    <mat-sidenav class="mat-offcanvas" #sidenav position="end" (click)="sidenav.toggle">
+      <!-- Sidenav Content -->
+      <app-sidenav  (DataEmitter)="sidenav.toggle()"></app-sidenav>
+      <!-- Sidenav Content ///-->
+    </mat-sidenav>
+    <mat-sidenav-content>
+    <div class="fullpage"> 
+        <!-- TopNav Content -->
+        <app-topnav [sideNav_Parent]="sidenav"></app-topnav>
+        <!-- TopNav Content -->
+        <div class="content">
+            <div class="my-mt-4_5 b-radius-0" 
+                [class]="isAdminPage()? 'card outer-card ' : 'summary_panel'"> 
+                <!-- Angular Expansion Panel \\\ -->
+                <mat-accordion>
+                  <span *ngIf="isAdminPage()"
+                    [matBadge]="service.pendingApproval_length" 
+                    [matBadgeHidden]="pendingApprovals.expanded || service.pendingApproval_length==0" > 
+                    <mat-expansion-panel class="b-radius-0" [expanded]="expand_accordion" #pendingApprovals>
+                        <mat-expansion-panel-header class="PFPS-blue-lt-bg min-h-7vmin">
+                            <mat-panel-title class="vmin3 PFPS-cyan min-h-5vmin" (click)="toggleBagdeHidden()" >
+                                Pending Approvals
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div>
+                        <!-- No Records     \\\-->
+                            <div *ngIf="service.pendingApproval_length==0" class="my-mt-3 text-center">No Records Found</div>
+                        <!-- No Records     ///-->
+                        <!-- With Records   \\\-->
+                            <div *ngIf="service.pendingApproval_length!=0" class="">
+                                <!-- Angular Table \\\ -->
+                                <!-- Paginator & Filter \\\ -->
+                                <!-- <div class="row">
+                                  <div class="col-6">
+                                    <mat-form-field class="text-start">
+                                      <mat-label class="vmin2_7">Filter</mat-label>
+                                      <input class="vmin2_7" matInput (keyup)="PendingApproval_Filter($event)" placeholder="Ex. Mia" #input>
+                                    </mat-form-field>
+                                  </div>
+                                  <div  class="col-6">
+                                  <mat-paginator class="vmin2_7" #MatPage1 [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                                  </div>
+                                </div> -->
+                                <!-- Paginator & Filter /// -->
+                                  <div class="mat-elevation-z8 my-mt-2 hide_scrollbar mh-50vh">
+                                    <table mat-table #MatSort1="matSort" [dataSource]="pendingApproval_data" matSort >
+                                      <!-- ID -->
+                                      <!-- <ng-container matColumnDef="id">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7"> ID </th>
+                                        <td mat-cell *matCellDef="let row" class="text-start vmin2_7"> {{row.id}} </td>
+                                      </ng-container> -->
+                                      <!-- UserName -->
+                                      <ng-container matColumnDef="username">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7 w-33"> UserName </th>
+                                        <td mat-cell *matCellDef="let row" class="text-start vmin2_7"> {{row.username}} </td>
+                                      </ng-container>
+                                      <!-- Role -->
+                                      <ng-container matColumnDef="role">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7 w-27"> Role </th>
+                                        <td mat-cell *matCellDef="let row" class="text-start vmin2_7"> {{row.role}}</td>
+                                      </ng-container>
+                                      <!-- Requested Time -->
+                                      <ng-container matColumnDef="createDateTime">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7 w-36"> Requested Time </th>
+                                        <td mat-cell *matCellDef="let row" class="text-start vmin2_7">  {{row.createDateTime}} </td>
+                                      </ng-container>
+                                      <!-- Approve Btn -->
+                                      <ng-container matColumnDef="approve">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7 w-2"> Approve </th>
+                                        <td mat-cell *matCellDef="let row" class="text-start vmin2_7">
+                                          <button type="button"  class="btn btn-info btnn2"  (click)="Approve(row)">
+                                            <i class="fas fa-check fa-2x"></i>
+                                          </button>
+                                        </td>
+                                      </ng-container>
+                                      <!-- Deny Btn -->
+                                      <ng-container matColumnDef="deny">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7 w-2"> Deny </th>
+                                        <td mat-cell *matCellDef="let row" class="text-start" >
+                                          <button type="button" (click)="openDialog(row,'deny')" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn2">
+                                            <i class="fas fa-times fa-2x"></i>
+                                          </button>
+                                        </td>
+                                      </ng-container>
+                                      <tr mat-header-row *matHeaderRowDef="PendingApproval_Columns"></tr>
+                                      <tr mat-row *matRowDef="let row; columns: PendingApproval_Columns;"></tr>
+                                      <!-- Row shown when there is no matching data. -->
+                                      <!-- <tr class="mat-row" *matNoDataRow>
+                                        <td class="mat-cell" colspan="4" class="vmin2_7 ps-4">No data matching the filter "{{input.value}}"</td>
+                                      </tr> Uncomment in need of filter -->
+                                    </table>
+                                  </div> 
+                                <!-- Angular Table /// -->
+                            </div>
+                        <!-- With Records   ///-->
+                        </div>
+                        <!-- <mat-action-row>
+                            <button class="btn btnn2 btn-info">Approve All</button>
+                            <button class="btn btnn2"  [class]="dark ? 'dark-btn':'dark-btn-light'">Deny All</button>
+                        </mat-action-row> -->
+                    </mat-expansion-panel>
+                  </span>
+                  <span *ngIf="isAdminPage()"> 
+                    <mat-expansion-panel class="b-radius-0">
+                        <mat-expansion-panel-header class="PFPS-blue-lt-bg min-h-7vmin">
+                            <mat-panel-title class="vmin3 PFPS-cyan min-h-5vmin">
+                                Approved Users
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div>
+                          <!-- Angular Table 2\\\ -->
+                                <!-- Paginator & Filter \\\ -->
+                                <!-- <div class="row">
+                                  <div class="col-6">
+                                    <mat-form-field class="text-start">
+                                      <mat-label class="vmin2_7">Filter</mat-label>
+                                      <input class="vmin2_7" matInput (keyup)="ApprovedUsers_Filter($event)" placeholder="Ex. Mia" #input>
+                                    </mat-form-field>
+                                  </div>
+                                  <div  class="col-6">
+                                  <mat-paginator class="vmin2_7" #MatPage2 [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                                  </div>
+                                </div> -->
+                                <!-- Paginator & Filter /// -->
+                                <div class="mat-elevation-z8 my-mt-2 hide_scrollbar mh-50vh">
+                                  <table mat-table #MatSort2="matSort" [dataSource]="ApprovedUsers_data" matSort >
+                                    <!-- ID -->
+                                    <!-- <ng-container matColumnDef="id">
+                                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7"> ID </th>
+                                      <td mat-cell *matCellDef="let row" class="text-start vmin2_7"
+                                      [class]="row.username == You ? 'PFPS-cyan':'none'"> {{row.id}} </td>
+                                    </ng-container> -->
+                                    <!-- UserName -->
+                                    <ng-container matColumnDef="username">
+                                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7 w-33"> UserName </th>
+                                      <td mat-cell *matCellDef="let row" class="text-start vmin2_7"
+                                      [class]="row.username == You ? 'PFPS-cyan':'none'"> {{row.username}} 
+                                        <span class="vmin2_7" *ngIf="row.username == You"> (You) </span>
+                                      </td>
+                                    </ng-container>
+                                    <!-- Role -->
+                                    <ng-container matColumnDef="role">
+                                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7 w-27"> Role </th>
+                                      <td mat-cell *matCellDef="let row" class="text-start vmin2_7"
+                                      [class]="row.username == You ? 'PFPS-cyan':'none'"> {{row.role}}</td>
+                                    </ng-container>
+                                    <!-- Approved Time -->
+                                    <ng-container matColumnDef="approvedDateTime">
+                                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7 w-36"> Approved Time </th>
+                                      <td mat-cell *matCellDef="let row" class="text-start vmin2_7"
+                                      [class]="row.username == You ? 'PFPS-cyan':'none'">  {{row.approvedDateTime}} </td>
+                                    </ng-container>
+                                    <!-- Change Access -->
+                                    <ng-container matColumnDef="changeAccess">
+                                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7 w-2"> Change </th>
+                                      <td mat-cell *matCellDef="let row" class="text-start vmin2_7" >
+                                        <!-- Promote -->
+                                        <!-- Here In ngIf not using roleStatus. coz If roleStatus changes to D it will hides for a second -->
+                                        <button *ngIf="row.role == 'Higher Official' " type="button" [disabled]="row.username == You" class="btn btn-info btnn2" (click)="Promote(row)">
+                                          <i class="fas fa-sort-amount-up-alt fa-2x"></i>
+                                        </button>
+                                        <!-- Demote -->
+                                        <button *ngIf="row.role == 'Admin'" type="button" [disabled]="row.username == You" class="btn btn-info btnn2" (click)="Demote(row)">
+                                          <i class="fas fa-sort-amount-down-alt fa-2x"></i>
+                                        </button>
+                                      </td>
+                                    </ng-container>
+                                    <!-- Remove Access -->
+                                    <ng-container matColumnDef="removeAccess">
+                                      <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7 w-2"> Remove </th>
+                                      <td mat-cell *matCellDef="let row" class="text-start" >
+                                        <button type="button" (click)="openDialog(row,'deny')" [disabled]="row.username == You" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn2">
+                                          <i class="fas fa-ban fa-2x"></i>
+                                        </button>
+                                      </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="ApprovedUsers_Columns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: ApprovedUsers_Columns;"></tr>
+                                    <!-- Row shown when there is no matching data. -->
+                                    <!-- <tr class="mat-row" *matNoDataRow>
+                                      <td class="mat-cell" colspan="4" class="vmin2_7 ps-4">No data matching the filter "{{input.value}}"</td>
+                                    </tr> Uncomment in need of filter -->
+                                  </table>
+                                </div> 
+                              <!-- Angular Table 2/// -->
+                        </div>
+                    </mat-expansion-panel>
+                  </span>
+                  <span>
+                    <mat-expansion-panel [expanded]="!isAdminPage() && expand_accordion" 
+                    class="b-radius-0">
+                      <mat-expansion-panel-header class="PFPS-blue-lt-bg min-h-7vmin">
+                          <mat-panel-title class="vmin3 PFPS-cyan min-h-5vmin">
+                              Calculation Summary
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div>
+                        <!-- Angular Table 3\\\ -->
+                              <!-- Paginator & Filter \\\ -->
+                              <div class="row" >
+                                <div class="col-6">
+                                  <mat-form-field class="text-start">
+                                    <mat-label class="vmin2_7">Filter</mat-label>
+                                    <input class="vmin2_7" matInput (keyup)="SubmittedCalculations_Filter($event)" placeholder="Ex. Renith" #input>
+                                  </mat-form-field>
+                                </div>
+                                <div  class="col-6">
+                                <mat-paginator class="vmin2_7" #MatPage3 [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                                </div>
+                              </div>
+                              <!-- Paginator & Filter /// -->
+                              <!-- No Records     \\\-->
+                              <div *ngIf="this.SubmittedCalculations_length == 0" class="my-mt-3 text-center">No Records Found</div>
+                              <!-- No Records     ///-->
+                              <div class="mat-elevation-z8  hide_scrollbar" 
+                              [class]="isAdminPage() ? 'mh-45vh' : 'mh-58vh'"
+                              *ngIf="this.SubmittedCalculations_length != 0">
+                                <table mat-table #MatSort3="matSort" [dataSource]="SubmittedCalculations_data" matSort >
+                                  <!-- Employee Name -->
+                                  <ng-container matColumnDef="emp_name">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7" style="width:26% !important"> Employee Name </th>
+                                    <td mat-cell *matCellDef="let row" class="text-start vmin2_7"  style="width:26% !important"> {{row.emp_name}} </td>
+                                  </ng-container>
+                                  <!-- CTC -->
+                                  <ng-container matColumnDef="ctc">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7"  style="width:15% !important"> CTC </th>
+                                    <td mat-cell *matCellDef="let row" class="text-start vmin2_7" style="width:15% !important"> {{row.ctc}}</td>
+                                  </ng-container>
+                                  <!-- Markup -->
+                                  <ng-container matColumnDef="markup">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7"  style="width:12% !important"> Mark-up </th>
+                                    <td mat-cell *matCellDef="let row" class="text-start vmin2_7" style="width:12% !important"> {{row.markup}}</td>
+                                  </ng-container>
+                                  <!-- Total Hours -->
+                                  <ng-container matColumnDef="t_hours">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7"  style="width:7% !important"> THPM </th>
+                                    <td mat-cell *matCellDef="let row" class="text-start vmin2_7" style="width:7% !important"> {{row.t_hours}}</td>
+                                  </ng-container>
+                                  <!-- Submitted DateTime -->
+                                  <ng-container matColumnDef="date_time">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7"  style="width:20% !important"> Submitted at </th>
+                                    <td mat-cell *matCellDef="let row" class="text-start vmin2_7" style="width:20% !important"> {{row.date_time}}</td>
+                                  </ng-container>
+                                  <!-- Currency Type -->
+                                  <ng-container matColumnDef="currency_type">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7"  style="width:8% !important"> Currency </th>
+                                    <td mat-cell *matCellDef="let row" class="text-start vmin2_7" style="width:8% !important"> {{row.currency_type}}</td>
+                                  </ng-container>
+                                  <!-- View Btn -->
+                                  <ng-container matColumnDef="view">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7"  style="width:6% !important"> View </th>
+                                    <td mat-cell *matCellDef="let row" class="text-start vmin2_7" style="width:6% !important" (click)="View(row)">
+                                      <button type="button"  class="btn btn-info btnn2" >
+                                        <i class="far fa-eye fa-2x"></i>
+                                      </button>
+                                    </td>
+                                  </ng-container>
+                                  <!-- Delete Btn -->
+                                  <ng-container matColumnDef="delete">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="vmin2_7"  style="width:6% !important"> Delete </th>
+                                    <td mat-cell *matCellDef="let row" class="text-start" style="width:6% !important">
+                                      <button type="button" (click)="openDialog(row, 'delete')" [class]="dark ? 'dark-btn':'dark-btn-light'" class="btn btnn2">
+                                        <i class="far fa-trash-alt fa-2x"></i>
+                                      </button>
+                                    </td>
+                                  </ng-container>
+                                  <tr mat-header-row *matHeaderRowDef="SubmittedCalculations_Columns"></tr>
+                                  <tr mat-row *matRowDef="let row; columns: SubmittedCalculations_Columns;"></tr>
+                                  <!-- Row shown when there is no matching data. -->
+                                  <!-- <tr class="mat-row" *matNoDataRow>
+                                    <td class="mat-cell" colspan="4" class="vmin2_7 ps-4">No data matching the filter "{{input.value}}"</td>
+                                  </tr> Uncomment in need of filter -->
+                                </table>
+                              </div> 
+                            <!-- Angular Table 3/// -->
+                      </div>
+                  </mat-expansion-panel>
+                  </span>
+                </mat-accordion>
+                <!-- Angular Expansion Panel /// -->
+            </div>
+        </div>
+    </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

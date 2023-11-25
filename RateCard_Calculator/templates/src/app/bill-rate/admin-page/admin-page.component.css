@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap'); /*Numbers*/
+*, *:before, *::after   { box-sizing: inherit       ; } /*inherit from parent*/
+html                    { box-sizing: border-box    ; }
+.content-box            { box-sizing: content-box   ; }
+*                       { font-family: 'Signika', sans-serif ; font-size: 3.2vmin}
+.outer-card
+{
+    width  : 93vw;
+    height : 83vh;
+    box-shadow: 0 0 1.7vmin .1vmin rgb(158, 158, 158);
+    /* border-radius: 1.5vmin !important; */
+}
+.outer-card-content
+{
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+.summary_panel
+{
+  width  : 93vw !important;
+}
+.content
+{
+    display: grid;
+    justify-content: center;
+}
+::ng-deep .mat-expansion-indicator::after  
+{
+    color:white ;
+}
+::ng-deep.mat-badge-content{
+  background : #00badf;
+  color:white;
+  font-size: 2vmin;
+}
+/* Angular Table \\\ */
+table  {width: 100% ; } 
+td, th {width: 25%  ; }
+.mat-mdc-form-field 
+{
+  font-size: 14px;
+  width: 100%;
+}
+/* .min-h-7vmin { min-height: 7vmin !important ; }
+.min-h-5vmin { min-height: 5vmin !important ; } */
+.col_values:hover
+{
+  background-color: #00badf;
+  color:white;
+  cursor: pointer;
+}
+/* hidden scrollbar */
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide_scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide_scrollbar {
+  overflow-y: scroll;
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
+}
+/* width */
+.w-33 { width: 33%; }
+.w-27 { width: 27%; }
+.w-36 { width: 36%; }
+.w-2  { width:  2%; }
+/* Angular Table /// */
+
+

@@ -1,0 +1,19 @@
+<div class="no-conn-container" *ngIf="!connection" [class]="!connection ? 'backdrops' : ''">
+    <div class="fix-text-container">
+        <span class="vmin7 PFPS-cyan">We are Fixing It!</span>
+    </div> 
+    <div class="gear-wrench-container">
+        <div class="gear-container">
+            <i class="fas fa-cog gear-1 PFPS-cyan"></i>
+            <i class="fas fa-cog gear-2 PFPS-cyan"></i>
+            <i class="fas fa-cog gear-3 PFPS-cyan"></i>
+        </div>
+        <div class="wrench-container">
+            <i class="fas fa-wrench wrench wrench-1 PFPS-cyan">
+                <img class="nut-icon" src="assets/Images/nut.png" alt="wrench Icon">
+            </i>
+        </div>
+    </div>
+</div>
+<div class="router">
+<router-outlet></router-outlet>
